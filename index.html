@@ -36,7 +36,8 @@ img{max-width:100%;display:block}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;transition:all .4s}
 .nav.scrolled{padding:12px 0;background:rgba(255,253,249,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo img{height:100px;width:auto;object-fit:contain}
+.nav-logo{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.nav-logo .hl{color:var(--brand)}
 .nav-right{display:flex;align-items:center;gap:36px}
 .nav-right a{font-size:14px;color:var(--ink2);font-weight:500;transition:color .2s}
 .nav-right a:hover{color:var(--brand)}
@@ -186,7 +187,8 @@ img{max-width:100%;display:block}
 .footer{border-top:1px solid var(--border);background:var(--bg)}
 .footer-inner{max-width:1200px;margin:0 auto;padding:64px 40px 0}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid var(--border)}
-.footer-logo img{height:48px;width:auto;object-fit:contain;margin-bottom:12px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--brand);margin-bottom:12px}
+.footer-logo .hl{color:var(--brand)}
 .footer-tagline{font-size:14px;color:var(--ink3);line-height:1.7;max-width:280px}
 .footer h4{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px}
 .footer ul{list-style:none}
@@ -241,7 +243,7 @@ img{max-width:100%;display:block}
 <!-- Nav -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-logo"><img src="./Gharam_logo.png" alt="Gharam"></a>
+    <a href="#" class="nav-logo"><span class="hl">Ghar</span>am</a>
     <div class="nav-right">
       <a href="#how">How It Works</a>
       <a href="#features">Features</a>
@@ -588,7 +590,7 @@ img{max-width:100%;display:block}
   <div class="footer-inner">
     <div class="footer-grid">
       <div>
-        <div class="footer-logo"><img src="./Gharam_logo.png" alt="Gharam"></div>
+        <div class="footer-logo"><span class="hl">Ghar</span>am</div>
         <p class="footer-tagline">Expert chefs. Your kitchen. Perfect meals. The modern way to enjoy restaurant-quality food at home.</p>
       </div>
       <div>
