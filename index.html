@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gharam — Premium Home-Chef Platform</title>
+<meta name="description" content="Gharam connects you with verified professional chefs who cook restaurant-quality meals in the comfort of your home kitchen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --brand:#e64b6a;
+  --brand-dark:#a81844;
+  --accent:#0f9f8a;
+  --accent-dark:#0b4d45;
+  --gold:#f4bd35;
+  --gold-dark:#d4a017;
+  --ink:#102421;
+  --ink2:#3d4f51;
+  --ink3:#7a8c8e;
+  --bg:#fffdf9;
+  --bg2:#f8f5f0;
+  --bg3:#f0ebe3;
+  --border:#e8e2d8;
+  --cream:#fdf8ef;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--brand);color:#fff}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ── Nav ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;transition:all .4s}
+.nav.scrolled{padding:12px 0;background:rgba(255,253,249,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo img{height:100px;width:auto;object-fit:contain}
+.nav-right{display:flex;align-items:center;gap:36px}
+.nav-right a{font-size:14px;color:var(--ink2);font-weight:500;transition:color .2s}
+.nav-right a:hover{color:var(--brand)}
+.nav-cta{background:var(--brand)!important;color:#fff!important;padding:11px 24px;border-radius:8px;font-weight:600!important;transition:all .25s!important}
+.nav-cta:hover{background:var(--brand-dark)!important;box-shadow:0 4px 20px rgba(230,75,106,.25)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger svg{width:22px;height:22px;stroke:var(--ink)}
+.mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);backdrop-filter:blur(4px);z-index:200}
+.mobile-overlay.open{display:block}
+.mobile-panel{position:absolute;right:0;top:0;bottom:0;width:320px;background:var(--bg);border-left:1px solid var(--border);padding:32px;display:flex;flex-direction:column;gap:4px;animation:slideIn .3s ease}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+.mobile-panel a{display:block;padding:16px;border-radius:10px;font-size:15px;color:var(--ink2);font-weight:500;transition:all .15s}
+.mobile-panel a:hover{background:var(--bg2);color:var(--ink)}
+.mobile-panel .mob-cta{background:var(--brand);color:#fff!important;text-align:center;margin-top:16px;font-weight:600}
+.mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--ink3);font-size:28px;cursor:pointer;line-height:1}
+
+/* ── Hero ── */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--cream)}
+.hero::before{content:'';position:absolute;top:-20%;right:-10%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(230,75,106,.08),transparent 70%)}
+.hero::after{content:'';position:absolute;bottom:-15%;left:-5%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(15,159,138,.06),transparent 70%)}
+.hero-inner{max-width:1200px;margin:0 auto;padding:140px 40px 100px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
+.hero-content{animation:fadeUp .7s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--brand);margin-bottom:28px}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--brand)}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,5vw,64px);font-weight:500;line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-bottom:24px}
+.hero h1 em{font-style:italic;color:var(--brand)}
+.hero-sub{font-size:17px;color:var(--ink2);max-width:460px;line-height:1.75;margin-bottom:40px}
+.hero-actions{display:flex;gap:14px;align-items:center}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;background:var(--brand);color:#fff;border-radius:8px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .25s}
+.btn-primary:hover{background:var(--brand-dark);box-shadow:0 6px 24px rgba(230,75,106,.25);transform:translateY(-1px)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;background:transparent;color:var(--ink);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:all .25s}
+.btn-secondary:hover{border-color:var(--ink3);background:var(--bg2)}
+
+/* ── Hero Visual ── */
+.hero-visual{position:relative;animation:fadeUp .7s ease .2s both}
+.hero-image{width:100%;aspect-ratio:4/5;border-radius:20px;overflow:hidden;position:relative;background:var(--bg3)}
+.hero-image-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.hero-image-pattern{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e64b6a' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-logo-wrap{position:relative;z-index:1;text-align:center;padding:40px}
+.hero-logo-wrap img{max-height:280px;width:auto;margin:0 auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,.08))}
+.hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-badge{position:absolute;bottom:24px;right:-20px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:16px 22px;box-shadow:0 8px 32px rgba(0,0,0,.06);display:flex;align-items:center;gap:14px;z-index:2}
+.hero-badge-dot{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));display:flex;align-items:center;justify-content:center}
+.hero-badge-dot svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hero-badge-text{font-size:13px;font-weight:600;color:var(--ink);line-height:1.3}
+.hero-badge-sub{font-size:11px;color:var(--ink3);font-weight:400;margin-top:2px}
+
+/* ── Marquee ── */
+.marquee{padding:44px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:var(--bg)}
+.marquee-track{display:flex;gap:56px;animation:marquee 30s linear infinite;width:max-content}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-item{flex-shrink:0;font-family:'Playfair Display',serif;font-size:18px;font-weight:500;color:var(--ink3);white-space:nowrap;display:flex;align-items:center;gap:16px}
+.marquee-item::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--brand);opacity:.4;flex-shrink:0}
+
+/* ── Sections ── */
+.section{padding:120px 0}
+.section-header{text-align:center;margin-bottom:72px}
+.section-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2.5px;color:var(--brand);margin-bottom:20px}
+.section-eyebrow::before,.section-eyebrow::after{content:'';width:24px;height:1px;background:var(--gold)}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(30px,3.5vw,46px);font-weight:500;line-height:1.15;letter-spacing:-.02em}
+.section-title em{font-style:italic;color:var(--brand)}
+.section-desc{font-size:16px;color:var(--ink2);max-width:520px;margin:18px auto 0;line-height:1.75}
+
+/* ── Steps ── */
+.steps{max-width:1200px;margin:0 auto;padding:0 40px}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.step{padding:36px 28px;border:1px solid var(--border);border-radius:16px;background:var(--bg);transition:all .35s;position:relative}
+.step:hover{border-color:var(--brand);box-shadow:0 12px 40px rgba(230,75,106,.06);transform:translateY(-4px)}
+.step-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:500;color:var(--brand);margin-bottom:20px;display:block;line-height:1}
+.step h3{font-size:17px;font-weight:600;margin-bottom:10px}
+.step p{font-size:14px;color:var(--ink2);line-height:1.65}
+.step-line{position:absolute;top:54px;right:-24px;width:24px;height:1px;background:var(--border);display:block}
+.step:last-child .step-line{display:none}
+
+/* ── Features ── */
+.features{max-width:1200px;margin:0 auto;padding:0 40px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feature{padding:40px 28px;border:1px solid var(--border);border-radius:16px;background:var(--bg);transition:all .35s}
+.feature:hover{border-color:var(--gold);box-shadow:0 12px 40px rgba(0,0,0,.03);transform:translateY(-3px)}
+.feature-icon{width:48px;height:48px;border-radius:12px;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:22px;transition:all .3s}
+.feature:hover .feature-icon{border-color:var(--brand);background:rgba(230,75,106,.05)}
+.feature-icon svg{width:20px;height:20px;stroke:var(--brand);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.feature h3{font-size:17px;font-weight:600;margin-bottom:8px}
+.feature p{font-size:14px;color:var(--ink2);line-height:1.65}
+
+/* ── Stats ── */
+.stats{max-width:1200px;margin:0 auto;padding:0 40px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:56px 48px;border:1px solid var(--border);border-radius:20px;background:linear-gradient(135deg,var(--cream),var(--bg2))}
+.stat{text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,50px);font-weight:500;color:var(--brand);line-height:1}
+.stat-label{font-size:13px;color:var(--ink3);margin-top:8px;font-weight:500}
+
+/* ── Showcase ── */
+.showcase{max-width:1200px;margin:0 auto;padding:0 40px}
+.showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.showcase-card{border:1px solid var(--border);border-radius:20px;overflow:hidden;background:var(--bg);transition:all .35s}
+.showcase-card:hover{border-color:var(--brand);box-shadow:0 16px 48px rgba(0,0,0,.04);transform:translateY(-3px)}
+.showcase-card:first-child{grid-row:span 2}
+.showcase-visual{position:relative;overflow:hidden}
+.showcase-card:first-child .showcase-visual{height:100%;min-height:500px;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.5)),url('https://images.pexels.com/photos/35267287/pexels-photo-35267287.jpeg?auto=compress&cs=tinysrgb&w=800') center/cover no-repeat}
+.showcase-card:nth-child(2) .showcase-visual{height:240px;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.5)),url('https://images.pexels.com/photos/30203310/pexels-photo-30203310.jpeg?auto=compress&cs=tinysrgb&w=800') center/cover no-repeat}
+.showcase-card:nth-child(3) .showcase-visual{height:240px;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.5)),url('https://images.pexels.com/photos/13292525/pexels-photo-13292525.jpeg?auto=compress&cs=tinysrgb&w=800') center/cover no-repeat}
+.showcase-visual-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:80px;font-weight:700;color:var(--brand);opacity:.1}
+.showcase-card:first-child .showcase-visual-icon{font-size:140px}
+.showcase-visual-text{position:absolute;bottom:24px;left:24px;right:24px}
+.showcase-visual-text h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;color:#fff;margin-bottom:4px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+.showcase-visual-text p{font-size:13px;color:rgba(255,255,255,.85);font-weight:500;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+.showcase-info{padding:28px}
+.showcase-info p{font-size:14px;color:var(--ink2);line-height:1.65}
+.showcase-tags{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.showcase-tag{font-size:11px;padding:6px 14px;border-radius:6px;border:1px solid var(--border);color:var(--ink3);font-weight:500;background:var(--bg2)}
+
+/* ── Testimonials ── */
+.testimonials{max-width:1200px;margin:0 auto;padding:0 40px}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testimonial{padding:32px;border:1px solid var(--border);border-radius:16px;background:var(--bg);transition:all .35s}
+.testimonial:hover{border-color:var(--gold);box-shadow:0 8px 32px rgba(0,0,0,.03)}
+.testimonial-stars{color:var(--gold);font-size:14px;letter-spacing:3px;margin-bottom:16px}
+.testimonial blockquote{font-size:15px;color:var(--ink2);line-height:1.7;font-style:italic;margin-bottom:20px}
+.testimonial-author{display:flex;align-items:center;gap:12px}
+.testimonial-avatar{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:#fff;background:var(--brand)}
+.testimonial-name{font-size:14px;font-weight:600}
+.testimonial-role{font-size:12px;color:var(--ink3)}
+
+/* ── CTA ── */
+.cta{padding:120px 0}
+.cta-box{max-width:1200px;margin:0 auto;padding:0 40px}
+.cta-inner{border:1px solid var(--border);border-radius:24px;padding:80px 60px;text-align:center;background:linear-gradient(135deg,var(--cream),var(--bg2));position:relative;overflow:hidden}
+.cta-inner::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(230,75,106,.06),transparent 70%)}
+.cta-inner h2{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:500;line-height:1.15;margin-bottom:16px;position:relative}
+.cta-inner h2 em{font-style:italic;color:var(--brand)}
+.cta-inner p{font-size:16px;color:var(--ink2);max-width:460px;margin:0 auto 36px;line-height:1.7;position:relative}
+
+/* ── Featured Grid ── */
+.featured{max-width:1200px;margin:0 auto;padding:0 40px}
+.featured-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.featured-item{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1/1;cursor:pointer;transition:all .35s}
+.featured-item:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
+.featured-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.featured-item:hover img{transform:scale(1.05)}
+.featured-item::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 50%)}
+.featured-label{position:absolute;bottom:12px;left:14px;right:14px;z-index:1;color:#fff;font-size:13px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+.featured-price{position:absolute;top:12px;right:12px;z-index:1;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;color:var(--brand)}
+
+/* ── Footer ── */
+.footer{border-top:1px solid var(--border);background:var(--bg)}
+.footer-inner{max-width:1200px;margin:0 auto;padding:64px 40px 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid var(--border)}
+.footer-logo img{height:48px;width:auto;object-fit:contain;margin-bottom:12px}
+.footer-tagline{font-size:14px;color:var(--ink3);line-height:1.7;max-width:280px}
+.footer h4{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px}
+.footer ul{list-style:none}
+.footer ul li{margin-bottom:12px}
+.footer ul a{font-size:14px;color:var(--ink2);transition:color .2s}
+.footer ul a:hover{color:var(--brand)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding:24px 0;font-size:13px;color:var(--ink3)}
+.footer-social{display:flex;gap:12px}
+.footer-social a{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.footer-social a:hover{border-color:var(--brand);background:rgba(230,75,106,.04)}
+.footer-social svg{width:16px;height:16px;stroke:var(--ink3);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── Reveal ── */
+.reveal{opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── Responsive ── */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:48px}
+  .hero-visual{order:-1}
+  .hero-image{aspect-ratio:16/9}
+  .steps-grid{grid-template-columns:repeat(2,1fr)}
+  .step-line{display:none}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .showcase-grid{grid-template-columns:1fr}
+  .showcase-card:first-child{grid-row:auto}
+  .showcase-card:first-child .showcase-visual{min-height:280px}
+}
+@media(max-width:768px){
+  .nav-right{display:none}
+  .hamburger{display:block}
+  .hero-inner{padding:120px 24px 60px}
+  .steps-grid,.features-grid,.testimonials-grid{grid-template-columns:1fr}
+  .featured-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-row{grid-template-columns:repeat(2,1fr);padding:36px 24px}
+  .cta-inner{padding:48px 24px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .footer-bottom{flex-direction:column;gap:16px;text-align:center}
+  .hero-badge{right:0;bottom:16px}
+}
+@media(max-width:480px){
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .btn-primary,.btn-secondary{text-align:center;justify-content:center}
+  .stats-row{grid-template-columns:1fr}
+  .featured-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><img src="../apps/images/Gharam_logo.png" alt="Gharam"></a>
+    <div class="nav-right">
+      <a href="#how">How It Works</a>
+      <a href="#features">Features</a>
+      <a href="#menu">Menu</a>
+      <a href="#reviews">Reviews</a>
+      <a href="https://gharam.in" class="nav-cta">Order Now</a>
+    </div>
+    <button class="hamburger" onclick="document.getElementById('mob').classList.add('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mob" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="mobile-panel">
+    <button class="mobile-close" onclick="document.getElementById('mob').classList.remove('open')">&times;</button>
+    <a href="#how" onclick="document.getElementById('mob').classList.remove('open')">How It Works</a>
+    <a href="#features" onclick="document.getElementById('mob').classList.remove('open')">Features</a>
+    <a href="#menu" onclick="document.getElementById('mob').classList.remove('open')">Menu</a>
+    <a href="#reviews" onclick="document.getElementById('mob').classList.remove('open')">Reviews</a>
+    <a href="https://gharam.in" class="mob-cta" onclick="document.getElementById('mob').classList.remove('open')">Order Now</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Now in Hyderabad</div>
+      <h1>Chef-crafted meals,<br>made <em>at&nbsp;home</em></h1>
+      <p class="hero-sub">Get verified, professional chefs to cook your favourite dishes fresh in your own kitchen. Restaurant quality, home comfort.</p>
+      <div class="hero-actions">
+        <a href="https://gharam.in" class="btn-primary">Explore Menu <span>&rarr;</span></a>
+        <a href="#how" class="btn-secondary">How It Works</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-image">
+        <div class="hero-image-inner">
+          <img src="https://images.pexels.com/photos/3186654/pexels-photo-3186654.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Chef cooking" class="hero-bg-img">
+        </div>
+      </div>
+      <div class="hero-badge">
+        <div class="hero-badge-dot">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <div class="hero-badge-text">100+ Verified Chefs</div>
+          <div class="hero-badge-sub">KYC verified &middot; Background checked</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Hyderabadi Biryani</span>
+    <span class="marquee-item">Masala Dosa</span>
+    <span class="marquee-item">Butter Chicken</span>
+    <span class="marquee-item">Tandoori Platter</span>
+    <span class="marquee-item">Paneer Tikka</span>
+    <span class="marquee-item">Haleem</span>
+    <span class="marquee-item">Rasmalai</span>
+    <span class="marquee-item">Momos</span>
+    <span class="marquee-item">Pasta</span>
+    <span class="marquee-item">Avakaya Pickle</span>
+    <span class="marquee-item">Laddu</span>
+    <span class="marquee-item">Biryani</span>
+    <span class="marquee-item">Masala Dosa</span>
+    <span class="marquee-item">Butter Chicken</span>
+    <span class="marquee-item">Tandoori Platter</span>
+    <span class="marquee-item">Paneer Tikka</span>
+    <span class="marquee-item">Haleem</span>
+    <span class="marquee-item">Rasmalai</span>
+    <span class="marquee-item">Momos</span>
+    <span class="marquee-item">Pasta</span>
+    <span class="marquee-item">Avakaya Pickle</span>
+    <span class="marquee-item">Laddu</span>
+  </div>
+</div>
+
+<!-- How It Works -->
+<section class="section" id="how">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">How It Works</div>
+    <h2 class="section-title">Four steps to a <em>perfect</em> meal</h2>
+    <p class="section-desc">From browsing the menu to savouring your meal, we handle every detail so you can simply enjoy.</p>
+  </div>
+  <div class="steps">
+    <div class="steps-grid">
+      <div class="step reveal">
+        <span class="step-num">01</span>
+        <h3>Choose Your Dish</h3>
+        <p>Browse 500+ dishes across 12 cuisines. Filter by veg, non-veg, or category to find exactly what you crave.</p>
+        <span class="step-line"></span>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">02</span>
+        <h3>We Source Ingredients</h3>
+        <p>Our team procures the freshest produce for your order. Skip anything you already have at home.</p>
+        <span class="step-line"></span>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">03</span>
+        <h3>Chef Arrives</h3>
+        <p>A verified chef comes to your kitchen, equipped and ready. Track their arrival in real time.</p>
+        <span class="step-line"></span>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">04</span>
+        <h3>Savour the Meal</h3>
+        <p>Enjoy restaurant-quality food cooked fresh in your kitchen. Rate your experience after.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="section" id="features" style="background:var(--bg2)">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Why Gharam</div>
+    <h2 class="section-title">Built for <em>food lovers</em></h2>
+    <p class="section-desc">Every feature designed to give you the best home-dining experience possible.</p>
+  </div>
+  <div class="features">
+    <div class="features-grid">
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2"/></svg></div>
+        <h3>Verified Chefs</h3>
+        <p>Every chef undergoes KYC verification, background checks, and continuous quality monitoring.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg></div>
+        <h3>Fresh Ingredients</h3>
+        <p>We source top-quality produce for every order. You can also skip items you already have at home.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h3>Live Tracking</h3>
+        <p>Watch your chef's journey in real time. Know exactly when they'll arrive at your doorstep.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>Your Kitchen</h3>
+        <p>No dining out needed. Enjoy the comfort of your home with restaurant-quality food.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <h3>Rating System</h3>
+        <p>Rate chefs on taste, hygiene, and ambience. Your feedback helps maintain quality.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>Smart Pricing</h3>
+        <p>Transparent pricing with no hidden fees. Equipment-based time adjustments keep costs fair.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats reveal">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num" data-target="500">0</div><div class="stat-label">Dishes Available</div></div>
+    <div class="stat"><div class="stat-num" data-target="100">0</div><div class="stat-label">Verified Chefs</div></div>
+    <div class="stat"><div class="stat-num" data-target="4.8" data-decimal="true">0</div><div class="stat-label">Average Rating</div></div>
+    <div class="stat"><div class="stat-num" data-target="10">0</div><div class="stat-label">K+ Orders</div></div>
+  </div>
+</div>
+
+<!-- Showcase -->
+<section class="section" id="menu">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Our Menu</div>
+    <h2 class="section-title">Curated for every <em>craving</em></h2>
+    <p class="section-desc">From Hyderabadi Biryani to Italian Pasta, our chefs master every cuisine.</p>
+  </div>
+  <div class="showcase">
+    <div class="showcase-grid">
+      <div class="showcase-card reveal">
+        <div class="showcase-visual">
+          <div class="hero-image-pattern"></div>
+          <div class="showcase-visual-icon">H</div>
+          <div class="showcase-visual-text">
+            <h3>Hyderabadi Specials</h3>
+            <p>Authentic flavours from the City of Nizams</p>
+          </div>
+        </div>
+        <div class="showcase-info">
+          <p>Authentic Dum Biryani, Haleem, Marag, and traditional Telugu delicacies cooked by master chefs from the city of Nizams.</p>
+          <div class="showcase-tags">
+            <span class="showcase-tag">Biryani</span>
+            <span class="showcase-tag">Haleem</span>
+            <span class="showcase-tag">Marag</span>
+            <span class="showcase-tag">Kebabs</span>
+          </div>
+        </div>
+      </div>
+      <div class="showcase-card reveal">
+        <div class="showcase-visual">
+          <div class="hero-image-pattern"></div>
+          <div class="showcase-visual-icon">N</div>
+          <div class="showcase-visual-text">
+            <h3>North Indian &amp; Mughlai</h3>
+            <p>Royal flavours, home kitchen</p>
+          </div>
+        </div>
+        <div class="showcase-info">
+          <p>Rich curries, tandoori grills, and Mughlai delicacies that bring the royal kitchen to your home.</p>
+          <div class="showcase-tags">
+            <span class="showcase-tag">Butter Chicken</span>
+            <span class="showcase-tag">Dal Makhani</span>
+            <span class="showcase-tag">Naan</span>
+          </div>
+        </div>
+      </div>
+      <div class="showcase-card reveal">
+        <div class="showcase-visual">
+          <div class="hero-image-pattern"></div>
+          <div class="showcase-visual-icon">S</div>
+          <div class="showcase-visual-text">
+            <h3>Namkeen, Sweets &amp; Pickles</h3>
+            <p>Homemade goodness, always</p>
+          </div>
+        </div>
+        <div class="showcase-info">
+          <p>Homemade snacks, traditional sweets, and authentic pickles prepared with time-honoured recipes.</p>
+          <div class="showcase-tags">
+            <span class="showcase-tag">Laddu</span>
+            <span class="showcase-tag">Murukku</span>
+            <span class="showcase-tag">Avakaya</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section" id="reviews" style="background:var(--bg2)">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Testimonials</div>
+    <h2 class="section-title">Loved by <em>food lovers</em></h2>
+    <p class="section-desc">Real experiences from real customers who trust Gharam for their meals.</p>
+  </div>
+  <div class="testimonials">
+    <div class="testimonials-grid">
+      <div class="testimonial reveal">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"The biryani was incredible. The chef came right to my kitchen and the taste was better than any restaurant. Gharam is a game-changer!"</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">PR</div>
+          <div><div class="testimonial-name">Priya Reddy</div><div class="testimonial-role">Hyderabad</div></div>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"We hosted a house party and ordered for 20 people. The ingredient sourcing, the chef, the cleanup &mdash; everything was seamless."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--accent)">AK</div>
+          <div><div class="testimonial-name">Arjun Kumar</div><div class="testimonial-role">Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Finally, I can enjoy authentic home-style South Indian food without spending hours in the kitchen. The chefs are so professional."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--gold-dark)">SM</div>
+          <div><div class="testimonial-name">Sneha Mohan</div><div class="testimonial-role">Chennai</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Dishes -->
+<section class="section" id="featured">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Popular Dishes</div>
+    <h2 class="section-title">Customer <em>favourites</em></h2>
+    <p class="section-desc">The most ordered dishes from our platform, loved by thousands of food enthusiasts.</p>
+  </div>
+  <div class="featured">
+    <div class="featured-grid">
+      <div class="featured-item reveal">
+        <img src="https://images.pexels.com/photos/35267287/pexels-photo-35267287.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chicken Biryani" loading="lazy">
+        <div class="featured-label">Chicken Biryani</div>
+        <div class="featured-price">&#8377;280</div>
+      </div>
+      <div class="featured-item reveal">
+        <img src="https://images.pexels.com/photos/30203310/pexels-photo-30203310.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Butter Chicken" loading="lazy">
+        <div class="featured-label">Butter Chicken</div>
+        <div class="featured-price">&#8377;290</div>
+      </div>
+      <div class="featured-item reveal">
+        <img src="https://images.pexels.com/photos/35351659/pexels-photo-35351659.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Masala Dosa" loading="lazy">
+        <div class="featured-label">Masala Dosa</div>
+        <div class="featured-price">&#8377;120</div>
+      </div>
+      <div class="featured-item reveal">
+        <img src="https://images.pexels.com/photos/19081127/pexels-photo-19081127.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Margherita Pizza" loading="lazy">
+        <div class="featured-label">Margherita Pizza</div>
+        <div class="featured-price">&#8377;250</div>
+      </div>
+      <div class="featured-item reveal">
+        <img src="https://images.pexels.com/photos/28674541/pexels-photo-28674541.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Paneer Butter Masala" loading="lazy">
+        <div class="featured-label">Paneer Butter Masala</div>
+        <div class="featured-price">&#8377;220</div>
+      </div>
+      <div class="featured-item reveal">
+        <img src="https://images.pexels.com/photos/2347311/pexels-photo-2347311.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chilli Chicken" loading="lazy">
+        <div class="featured-label">Chilli Chicken</div>
+        <div class="featured-price">&#8377;220</div>
+      </div>
+      <div class="featured-item reveal">
+        <img src="https://images.pexels.com/photos/7340936/pexels-photo-7340936.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chicken Mandi" loading="lazy">
+        <div class="featured-label">Chicken Mandi</div>
+        <div class="featured-price">&#8377;300</div>
+      </div>
+      <div class="featured-item reveal">
+        <img src="https://images.pexels.com/photos/13292525/pexels-photo-13292525.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Double Ka Meetha" loading="lazy">
+        <div class="featured-label">Double Ka Meetha</div>
+        <div class="featured-price">&#8377;120</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-box">
+    <div class="cta-inner reveal">
+      <h2>Ready to taste the<br><em>Gharam</em> difference?</h2>
+      <p>Browse our menu, pick your dishes, and let a verified chef turn your kitchen into a five-star restaurant.</p>
+      <a href="https://gharam.in" class="btn-primary" style="display:inline-flex">Order Now <span>&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><img src="../apps/images/Gharam_logo.png" alt="Gharam"></div>
+        <p class="footer-tagline">Expert chefs. Your kitchen. Perfect meals. The modern way to enjoy restaurant-quality food at home.</p>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="https://gharam.in">Browse Menu</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Cuisines</h4>
+        <ul>
+          <li><a href="#">Hyderabadi</a></li>
+          <li><a href="#">South Indian</a></li>
+          <li><a href="#">North Indian</a></li>
+          <li><a href="#">Mughlai</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gharam. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#" title="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" title="Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+        <a href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>50)});
+
+// Reveal on scroll
+const revealObs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);revealObs.unobserve(e.target)}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(r=>revealObs.observe(r));
+
+// Stat counter
+const statObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      const target=parseFloat(el.dataset.target);
+      const isDecimal=el.dataset.decimal==='true';
+      const duration=1400;
+      const start=performance.now();
+      const tick=(now)=>{
+        const p=Math.min((now-start)/duration,1);
+        const ease=1-Math.pow(1-p,3);
+        el.textContent=isDecimal?(target*ease).toFixed(1):Math.round(target*ease);
+        if(p<1)requestAnimationFrame(tick);
+        else el.textContent=isDecimal?target.toFixed(1):target+'+';
+      };
+      requestAnimationFrame(tick);
+      statObs.unobserve(el);
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(s=>statObs.observe(s));
+</script>
+</body>
+</html>
