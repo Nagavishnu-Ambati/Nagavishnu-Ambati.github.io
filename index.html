@@ -205,6 +205,23 @@ img{max-width:100%;display:block}
 .reveal{opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.22,1,.36,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
+/* ── Modal ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);z-index:300;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:40px;width:100%;max-width:420px;position:relative;animation:modalIn .3s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--ink3);font-size:24px;cursor:pointer;line-height:1}
+.modal h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;margin-bottom:6px}
+.modal p{font-size:14px;color:var(--ink2);margin-bottom:24px}
+.modal label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.modal input{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:var(--ink);background:var(--bg2);margin-bottom:18px;transition:border-color .2s}
+.modal input:focus{outline:none;border-color:var(--brand)}
+.modal input::placeholder{color:var(--ink3)}
+.modal .btn-primary{width:100%;justify-content:center;margin-top:4px}
+.modal-success{text-align:center;padding:20px 0}
+.modal-success h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px}
+.modal-success p{font-size:14px;color:var(--ink2);margin-bottom:0}
+
 /* ── Responsive ── */
 @media(max-width:1024px){
   .hero-inner{grid-template-columns:1fr;gap:48px}
@@ -249,7 +266,7 @@ img{max-width:100%;display:block}
       <a href="#features">Features</a>
       <a href="#menu">Menu</a>
       <a href="#reviews">Reviews</a>
-      <a href="https://gharam.in" class="nav-cta">Order Now</a>
+      <a href="#" class="nav-cta" onclick="event.preventDefault();openModal()">Order Now</a>
     </div>
     <button class="hamburger" onclick="document.getElementById('mob').classList.add('open')">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
@@ -264,7 +281,7 @@ img{max-width:100%;display:block}
     <a href="#features" onclick="document.getElementById('mob').classList.remove('open')">Features</a>
     <a href="#menu" onclick="document.getElementById('mob').classList.remove('open')">Menu</a>
     <a href="#reviews" onclick="document.getElementById('mob').classList.remove('open')">Reviews</a>
-    <a href="https://gharam.in" class="mob-cta" onclick="document.getElementById('mob').classList.remove('open')">Order Now</a>
+    <a href="#" class="mob-cta" onclick="event.preventDefault();document.getElementById('mob').classList.remove('open');openModal()">Order Now</a>
   </div>
 </div>
 
@@ -398,7 +415,7 @@ img{max-width:100%;display:block}
         <p>Rate chefs on taste, hygiene, and ambience. Your feedback helps maintain quality.</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><text x="4" y="18" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="currentColor" stroke="none">&#8377;</text></svg></div>
         <h3>Smart Pricing</h3>
         <p>Transparent pricing with no hidden fees. Equipment-based time adjustments keep costs fair.</p>
       </div>
@@ -580,7 +597,7 @@ img{max-width:100%;display:block}
     <div class="cta-inner reveal">
       <h2>Ready to taste the<br><em>Gharam</em> difference?</h2>
       <p>Browse our menu, pick your dishes, and let a verified chef turn your kitchen into a five-star restaurant.</p>
-      <a href="https://gharam.in" class="btn-primary" style="display:inline-flex">Order Now <span>&rarr;</span></a>
+      <a href="#" class="btn-primary" style="display:inline-flex" onclick="event.preventDefault();openModal()">Order Now <span>&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -665,6 +682,44 @@ const statObs=new IntersectionObserver((entries)=>{
   });
 },{threshold:.5});
 document.querySelectorAll('.stat-num[data-target]').forEach(s=>statObs.observe(s));
+
+// Modal
+function openModal(){
+  document.getElementById('orderModal').classList.add('open');
+  document.getElementById('modalForm').style.display='block';
+  document.getElementById('modalSuccess').style.display='none';
+}
+function closeModal(){document.getElementById('orderModal').classList.remove('open')}
+document.getElementById('modalForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const name=document.getElementById('orderName').value.trim();
+  const phone=document.getElementById('orderPhone').value.trim();
+  if(!name||!phone)return;
+  const msg=encodeURIComponent('Hi, I\'d like to place an order.\n\nName: '+name+'\nPhone: '+phone);
+  window.open('https://wa.me/918019788210?text='+msg,'_blank');
+});
 </script>
+
+<!-- Order Modal -->
+<div class="modal-overlay" id="orderModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modalForm">
+      <h3>Place Your Order</h3>
+      <p>Enter your details and we'll get back to you shortly.</p>
+      <form>
+        <label for="orderName">Full Name</label>
+        <input type="text" id="orderName" placeholder="e.g. Priya Reddy" required>
+        <label for="orderPhone">Phone Number</label>
+        <input type="tel" id="orderPhone" placeholder="e.g. 9876543210" required>
+        <button type="submit" class="btn-primary">Submit Order</button>
+      </form>
+    </div>
+    <div id="modalSuccess" class="modal-success" style="display:none">
+      <h3>Thank you!</h3>
+      <p>We've received your details. Our team will contact you soon.</p>
+    </div>
+  </div>
+</div>
 </body>
 </html>
