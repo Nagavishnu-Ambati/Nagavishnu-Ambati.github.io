@@ -730,8 +730,8 @@ document.getElementById('orderForm').addEventListener('submit',function(e){
   var name=document.getElementById('orderName').value.trim();
   var phone=document.getElementById('orderPhone').value.trim();
   if(!name||!phone)return;
-  var text='Hi, I would like to place an order.\n\nName: '+name+'\nPhone: '+phone;
-  window.open('https://wa.me/918019788210?text='+encodeURIComponent(text),'_blank');
+  var text='Hi, I would like to place an order.%0A%0AName: '+encodeURIComponent(name)+'%0APhone: '+encodeURIComponent(phone);
+  window.open('https://wa.me/918019788210?text='+text,'_blank');
 });
 </script>
 </body>
