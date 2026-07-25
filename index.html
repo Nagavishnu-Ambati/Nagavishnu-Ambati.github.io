@@ -690,13 +690,13 @@ function openModal(){
   document.getElementById('modalSuccess').style.display='none';
 }
 function closeModal(){document.getElementById('orderModal').classList.remove('open')}
-document.getElementById('modalForm').addEventListener('submit',function(e){
+document.getElementById('orderForm').addEventListener('submit',function(e){
   e.preventDefault();
   const name=document.getElementById('orderName').value.trim();
   const phone=document.getElementById('orderPhone').value.trim();
   if(!name||!phone)return;
-  const msg=encodeURIComponent('Hi, I\'d like to place an order.\n\nName: '+name+'\nPhone: '+phone);
-  window.open('https://wa.me/918019788210?text='+msg,'_blank');
+  const text='Hi, I would like to place an order.\n\nName: '+name+'\nPhone: '+phone;
+  window.location.href='https://wa.me/918019788210?text='+encodeURIComponent(text);
 });
 </script>
 
@@ -707,11 +707,11 @@ document.getElementById('modalForm').addEventListener('submit',function(e){
     <div id="modalForm">
       <h3>Place Your Order</h3>
       <p>Enter your details and we'll get back to you shortly.</p>
-      <form>
+      <form id="orderForm">
         <label for="orderName">Full Name</label>
-        <input type="text" id="orderName" placeholder="e.g. Priya Reddy" required>
+        <input type="text" id="orderName" placeholder="Vishnu" required>
         <label for="orderPhone">Phone Number</label>
-        <input type="tel" id="orderPhone" placeholder="e.g. 9876543210" required>
+        <input type="tel" id="orderPhone" placeholder="8019788210" required>
         <button type="submit" class="btn-primary">Submit Order</button>
       </form>
     </div>
